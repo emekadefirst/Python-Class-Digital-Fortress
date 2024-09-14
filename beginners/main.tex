@@ -1,0 +1,362 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Review of Public Key Cryptography}
+\author{Chibuogwu Victor Chukwuemeka \\ Matriculation Number: 200551029}
+\date{June 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+In partial fulfillment of the requirement for the award of \\
+Bachelor of Science Degree (B.Sc. Hons.) in Mathematics \\
+Lagos State University, Ojo, Lagos, Nigeria
+\end{center}
+
+\vfill
+\newpage
+
+\section {Certification}
+I certify that this seminar titled \textit{``Public Key Cryptography''}, submitted by Chibuogwu Victor Chukwuemeka (Matriculation Number: 200551029), was carried out under my supervision in the Department of Mathematics, Faculty of Science, Lagos State University, Ojo, Lagos.
+
+\begin{flushright}
+\textbf{Dr. AbdulKareem A.O.}\\
+(Supervisor)\\
+\textit{Date: \underline{\hspace{2cm}}} \\
+\textbf{Dr. Olutimo A.L.}\\
+(Acting Head of Mathematics Department)\\
+\textit{Date: \underline{\hspace{2cm}}}
+\end{flushright}
+
+\newpage
+
+\section*{Dedication}
+Dedicated to my family and friends for unwavering support. And to my teachers whose wisdom and guidance made this possible.
+
+\newpage
+
+\section*{Acknowledgement}
+I would like to express my deepest gratitude to the current Head of the Mathematics Department at Lagos State University, Dr. Olutmimo A.L., and my advisor, Dr. AbdulKareem A.O., for their invaluable guidance and support throughout this research. I also thank my colleagues and friends for their encouragement and assistance. Special thanks to my family for their constant support and understanding.
+
+\newpage
+
+\section*{Abstract}
+This work presents the use case of Public Key encryption, discussing in detail the models and methods for encryption and decryption. It also illustrates the algorithms of each method, providing examples to solve unconstrained problems.
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\subsection{Introduction to Public Key Cryptography}
+Public Key Cryptography (PKC), introduced by Whitfield Diffie and Martin Hellman in 1976, revolutionized secure communication by addressing the challenge of key distribution. Unlike traditional symmetric key cryptography, PKC uses a pair of mathematically related keys: a public key for encryption and a private key for decryption. This dual-key system has enabled the development of secure communication protocols and digital signatures, among other applications.
+
+\subsection{Background of the Study}
+Since its inception, PKC has undergone significant development. Major algorithms like RSA (Rivest-Shamir-Adleman), DSA (Digital Signature Algorithm), and ECC (Elliptic Curve Cryptography) have been introduced to address various cryptographic challenges. These algorithms are characterized by their computational efficiency, security against attacks, and suitability for different applications. The security of PKC relies on the difficulty of mathematical problems such as factoring large integers or solving discrete logarithm problems in finite fields.
+
+\subsection{Statement of Problem}
+Despite its advantages, PKC faces several challenges:
+\begin{itemize}
+    \item \textbf{Key Management:} Generating, distributing, and storing keys securely.
+    \item \textbf{Computational Efficiency:} Ensuring encryption and decryption operations are fast and scalable.
+    \item \textbf{Vulnerabilities:} Addressing vulnerabilities such as side-channel attacks, quantum computing threats, and implementation errors.
+\end{itemize}
+
+\subsection{Aim and Objectives of the Study}
+The primary aim of this study is to provide a comprehensive examination of public key cryptography from a mathematical perspective. The specific objectives include:
+\begin{itemize}
+    \item \textbf{Historical Development:} Tracing the historical development and evolution of public key cryptography.
+    \item \textbf{Mathematical Principles:} Explaining the mathematical principles underlying key generation, encryption, and decryption.
+    \item \textbf{Real-World Applications:} Evaluating the effectiveness of public key cryptographic systems in various real-world applications.
+    \item \textbf{Security Analysis:} Identifying and analyzing major security threats and vulnerabilities associated with public key cryptography.
+    \item \textbf{Future Directions:} Suggesting potential improvements and future research directions.
+\end{itemize}
+
+\subsection{Significance of the Study}
+This study advances our understanding of the mathematical foundations of public key cryptography, provides insights into real-world applications and challenges, and guides policymakers in understanding and regulating cryptographic technologies.
+
+\subsection{Scope of the Study}
+The study comprehensively examines public key cryptography, including its theoretical foundations, development from inception to current technologies, real-world applications in secure communication, digital signatures, blockchain, and challenges such as key management and performance optimization. Future directions include post-quantum cryptography. Symmetric key cryptography is covered only for context or comparison.
+
+\subsection{Definition of Terms}
+\begin{itemize}
+    \item \textbf{Public Key Cryptography (PKC):} A cryptographic system that uses two keys—a public key for encryption and a private key for decryption.
+    \item \textbf{RSA (Rivest-Shamir-Adleman):} A widely used PKC algorithm based on the difficulty of factoring large integers.
+    \item \textbf{Digital Signature:} A mathematical scheme for verifying the authenticity and integrity of digital messages or documents.
+    \item \textbf{Elliptic Curve Cryptography (ECC):} A PKC algorithm based on the properties of elliptic curves over finite fields.
+    \item \textbf{Key Exchange:} The process of securely exchanging cryptographic keys between parties.
+\end{itemize}
+
+\newpage
+\section{Mathematical Principles of Public Key Cryptography}
+Public Key Cryptography is built upon several fundamental mathematical principles:
+\begin{itemize}
+    \item \textbf{Number Theory:} PKC algorithms rely on prime factorization and discrete logarithms.
+    \item \textbf{Modular Arithmetic:} Modular arithmetic is used in PKC algorithms to perform operations within finite sets of integers.
+    \item \textbf{Group Theory:} Group theory concepts like cyclic groups define cryptographic primitives.
+    \item \textbf{Complexity Theory:} The security of PKC relies on computationally hard problems such as factoring large integers or solving discrete logarithm problems.
+\end{itemize}
+
+\newpage
+\section{RSA Algorithm: Example of Public Key Cryptography}
+
+\subsection{Key Generation}
+In RSA, each user generates a pair of keys: a public key and a private key. The public key consists of two components: the modulus \(n\) and the public exponent \(e\). The private key consists of \(n\) and the private exponent \(d\). The security of RSA is based on the difficulty of factoring the modulus \(n\) into its prime factors.
+
+\subsection{Encryption and Decryption}
+\begin{itemize}
+    \item To encrypt a message \(m\), the sender uses the recipient’s public key \( (n, e) \) to compute \( c = m^e \mod n \).
+    \item To decrypt the ciphertext \(c\), the recipient uses their private key \( (n, d) \) to compute \( m = c^d \mod n \).
+\end{itemize}
+
+\subsection{Example}
+Encrypting \( M = 123 \):
+\[
+C = 123^{17} \mod 3233 = 855
+\]
+Decrypting \( C = 855 \):
+\[
+M = 855^{2753} \mod 3233 = 123
+\]
+
+\newpage
+\section{Elliptic Curve Cryptography (ECC)}
+
+\subsection{Elliptic Curves}
+ECC uses elliptic curves defined by the equation \( y^2 = x^3 + ax + b \) over finite fields. It offers equivalent security to RSA but with smaller key sizes, making it suitable for constrained environments such as mobile devices and IoT.
+
+\subsection{Key Generation}
+\begin{itemize}
+    \item Select an elliptic curve \( E \) defined over a finite field \( F_p \).
+    \item Choose a base point \( G \) on the curve \( E \) with a large prime order \( n \).
+    \item Select a random integer \( d \) as the private key such that \( 1 < d < n - 1 \).
+    \item Compute the public key \( Q = dG \), where \( G \) is the base point.
+\end{itemize}
+
+\subsection{Encryption and Decryption}
+\begin{itemize}
+    \item \textbf{Encryption:} To encrypt a message \( M \) (represented as a point on the curve), the sender computes the ciphertext pair \( (C_1, C_2) \), where \( C_1 = kG \) and \( C_2 = M + kQ \).
+    \item \textbf{Decryption:} The recipient recovers the message \( M \) by computing \( M = C_2 - dC_1 \) using their private key \( d \).
+\end{itemize}
+
+\newpage
+\section{Pairing-Based Cryptography}
+
+\subsection{Definition}
+Pairing is a bilinear map defined over elliptic curve subgroups. Let \( G_1 \), \( G_2 \), and \( G_T \) be groups of the same prime order \( q \). A bilinear map \( e: G_1 \times G_2 \to G_T \) satisfies the following properties:
+\begin{itemize}
+    \item \textbf{Bilinearity:} For all \( (S, T) \in G_1 \times G_2 \) and for all \( a, b \in \mathbb{Z} \), we have \( e(aS, bT) = e(S, T)^{ab} \).
+    \item \textbf{Non-degeneracy:} \( e(S, T) = 1 \) for all \( T \in G_2 \) if and only if \( S = 1 \).
+    \item \textbf{Computability:} For all \( (S, T) \in G_1 \times G_2 \), \( e(S, T) \) is efficiently computable.
+\end{itemize}
+
+\subsection{Consequences of Pairings}
+Pairings have important consequences on the hardness of certain variants of the Diffie-Hellman problem. For instance, symmetric pairings lead to a strict separation between the intractability of the computational Diffie-Hellman problem and the hardness of the corresponding decision problem.
+
+\newpage
+\section{Method of Study}
+
+\subsection{RSA Cryptosystem}
+The RSA cryptosystem is based on the difficulty of factoring large prime numbers. The steps for key generation, encryption, and decryption are described as follows:
+\begin{itemize}
+    \item Choose two distinct prime numbers \( p \) and \( q \).
+    \item Compute \( N = pq \) and the totient \( \phi(N) = (p-1)(q-1) \).
+    \item Choose an integer \( e \) such that \( 1 < e < \phi(N) \) and \( e \) is coprime with \( \phi(N) \).
+    \item Compute \( d \) as the modular multiplicative inverse of \( e \mod \phi(N) \).
+\end{itemize}
+The public key is \( (e, N) \), and the private key is \( (d, N) \).
+
+\subsection{Elliptic Curve Cryptography}
+ECC is based on the algebraic structure of elliptic curves over finite fields. The security of ECC relies on the difficulty of the elliptic curve discrete logarithm problem.
+
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Mathematical Implementation of Public Key Cryptography}
+\author{Chibuogwu Victor Chukwuemeka}
+\date{June 2024}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+This document presents the mathematical foundation and implementation of two fundamental public-key cryptosystems: RSA and Elliptic Curve Cryptography (ECC). The aim is to explain key generation, encryption, decryption, and security based on number theory.
+
+\newpage
+\section{Mathematical Foundation of RSA}
+
+The RSA algorithm relies on the difficulty of factoring large composite numbers. The key steps are outlined below.
+
+\subsection{Key Generation}
+Given two large prime numbers \( p \) and \( q \), we compute:
+\[
+N = p \times q
+\]
+where \( N \) is the modulus. Next, calculate Euler's totient function:
+\[
+\phi(N) = (p - 1) \times (q - 1)
+\]
+Choose an integer \( e \) such that:
+\[
+1 < e < \phi(N) \quad \text{and} \quad \gcd(e, \phi(N)) = 1
+\]
+The public key is \( (N, e) \). To generate the private key, compute \( d \) as the modular inverse of \( e \) modulo \( \phi(N) \):
+\[
+d \times e \equiv 1 \mod \phi(N)
+\]
+The private key is \( (N, d) \).
+
+\subsection{Encryption}
+Given a plaintext message \( M \), the ciphertext \( C \) is computed using the public key \( (N, e) \):
+\[
+C = M^e \mod N
+\]
+
+\subsection{Decryption}
+To decrypt the ciphertext \( C \), the recipient uses their private key \( (N, d) \) to recover the original message \( M \):
+\[
+M = C^d \mod N
+\]
+
+\subsection{Example}
+Let \( p = 61 \) and \( q = 53 \). First, compute:
+\[
+N = 61 \times 53 = 3233
+\]
+Next, calculate:
+\[
+\phi(N) = (61 - 1) \times (53 - 1) = 3120
+\]
+Choose \( e = 17 \), which is coprime to \( \phi(N) \). Now, compute \( d \), the modular inverse of \( 17 \mod 3120 \), which gives \( d = 2753 \).
+
+For encryption, given \( M = 123 \), calculate:
+\[
+C = 123^{17} \mod 3233 = 855
+\]
+To decrypt, calculate:
+\[
+M = 855^{2753} \mod 3233 = 123
+\]
+Thus, the encryption and decryption process works as expected.
+
+\newpage
+\section{Elliptic Curve Cryptography (ECC)}
+
+ECC is based on the algebraic structure of elliptic curves over finite fields. The security of ECC relies on the difficulty of solving the elliptic curve discrete logarithm problem (ECDLP).
+
+\subsection{Elliptic Curve Definition}
+An elliptic curve \( E \) over a finite field \( F_p \) is defined by the equation:
+\[
+y^2 = x^3 + ax + b \mod p
+\]
+where \( 4a^3 + 27b^2 \neq 0 \mod p \), ensuring the curve has no singularities.
+
+\subsection{Key Generation}
+\begin{itemize}
+    \item Select a finite field \( F_p \) and an elliptic curve \( E \) defined over \( F_p \).
+    \item Choose a base point \( G \) on the curve \( E \) with large prime order \( n \).
+    \item Select a random integer \( d \) (the private key) such that \( 1 < d < n-1 \).
+    \item Compute the public key \( Q = d \times G \), where \( G \) is the base point on the curve.
+\end{itemize}
+
+\subsection{Encryption}
+To encrypt a message \( M \) (represented as a point on the curve), the sender chooses a random integer \( k \) and computes the ciphertext pair \( (C_1, C_2) \):
+\[
+C_1 = k \times G
+\]
+\[
+C_2 = M + k \times Q
+\]
+
+\subsection{Decryption}
+To decrypt the ciphertext \( (C_1, C_2) \), the recipient uses their private key \( d \) to recover the original message:
+\[
+M = C_2 - d \times C_1
+\]
+
+\subsection{Example}
+Consider the elliptic curve \( y^2 = x^3 + x + 1 \) over \( F_{89} \), and let the base point be \( G = (2, 22) \). Suppose the private key is \( d = 10 \). The public key is:
+\[
+Q = 10 \times G
+\]
+If a sender wants to encrypt the message \( M = (10, 20) \), they choose a random \( k = 5 \) and compute:
+\[
+C_1 = 5 \times G
+\]
+\[
+C_2 = (10, 20) + 5 \times Q
+\]
+To decrypt, the recipient computes:
+\[
+M = C_2 - 10 \times C_1
+\]
+
+\newpage
+\section{Pairing-Based Cryptography}
+
+Pairing-based cryptography relies on bilinear maps, enabling applications like identity-based encryption.
+
+\subsection{Mathematical Definition of Pairing}
+Let \( G_1 \) and \( G_2 \) be cyclic groups of prime order \( q \), and let \( G_T \) be a multiplicative group of the same order. A pairing is a bilinear map:
+\[
+e: G_1 \times G_2 \to G_T
+\]
+satisfying the following properties:
+\begin{itemize}
+    \item \textbf{Bilinearity:} For all \( P \in G_1 \), \( Q \in G_2 \), and \( a, b \in \mathbb{Z}_q \):
+    \[
+    e(aP, bQ) = e(P, Q)^{ab}
+    \]
+    \item \textbf{Non-degeneracy:} \( e(P, Q) = 1 \) if and only if \( P = 1 \) or \( Q = 1 \).
+    \item \textbf{Computability:} The pairing \( e(P, Q) \) can be computed efficiently.
+\end{itemize}
+
+\subsection{Example of Pairing}
+Let \( P \in G_1 \) and \( Q \in G_2 \). The pairing \( e(P, Q) \) can be computed using Miller's algorithm or the Tate pairing, depending on the elliptic curve used.
+
+\newpage
+\section{Conclusion}
+This document has explored the mathematical foundations and implementations of two key public-key cryptosystems: RSA and Elliptic Curve Cryptography (ECC), as well as Pairing-Based Cryptography. These cryptographic methods are built upon principles from number theory, algebraic geometry, and group theory, making them secure and reliable for various applications in the real world.
+
+\subsection{Real-World Applications}
+
+\subsubsection{RSA Cryptography}
+RSA is widely used in secure communication protocols such as \textbf{SSL/TLS} for securing web traffic, ensuring confidentiality and integrity during transactions. RSA is also the backbone of \textbf{digital signatures}, which authenticate the identity of senders in email services (e.g., \textbf{PGP} for email encryption). Moreover, RSA is used in \textbf{software distribution} to ensure that updates come from legitimate sources by validating digital signatures.
+
+\subsubsection{Elliptic Curve Cryptography (ECC)}
+ECC is highly valued in industries where low computational overhead is necessary. For example, \textbf{mobile devices}, \textbf{IoT} devices, and \textbf{smart cards} leverage ECC for secure communication with smaller key sizes compared to RSA, reducing power consumption and processing time. ECC is also utilized in \textbf{cryptocurrency}, especially in generating cryptographic keys for \textbf{Bitcoin} and other blockchain technologies, ensuring secure transactions with minimal resource usage.
+
+\subsubsection{Pairing-Based Cryptography}
+Pairing-based cryptography is particularly important for \textbf{identity-based encryption} (IBE), which allows for secure email communication without the need for a prior exchange of public keys. It is also a critical technology in \textbf{cloud computing} environments where secure data sharing is required. Additionally, pairing-based schemes are employed in \textbf{attribute-based encryption} (ABE), used in access control systems where users gain access based on attributes rather than specific roles.
+
+\subsection{Final Thoughts}
+Public key cryptography plays a pivotal role in securing the digital landscape, from online banking to personal communications. The strength of cryptographic systems like RSA and ECC lies in their mathematical underpinnings, making them robust against attacks even as computational power increases. As technology evolves, pairing-based cryptography is emerging as a key player in advanced cryptographic protocols, especially in privacy-preserving systems.
+
+The future of cryptography will likely see the continued adoption of ECC in resource-constrained environments, the refinement of pairing-based methods for secure communications, and the potential shift to \textbf{post-quantum cryptography} as quantum computing poses new threats to current cryptographic systems.
+\end{document}
+
+\end{document}
+
+
+\newpage
+\section{Conclusion}
+This study has provided an in-depth exploration of RSA, Elliptic Curve Cryptography (ECC), and Pairing-Based Cryptography. Each method was explored mathematically with examples provided to illustrate their applications in cryptography. These methods play critical roles in ensuring the security and privacy of digital communications, and understanding their mathematical foundations is essential for implementing secure cryptographic systems.
+
+\end{document}
