@@ -31,7 +31,7 @@ def add_data(name, symbol, price, updated_at):
 
 
 url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-go = {"X-CMC_PRO_API_KEY": "api-key"}
+go = {"X-CMC_PRO_API_KEY": "5f127f99-3f49-494d-96bb-cc3b464a0cc2"}
 
 response = requests.get(url, headers=go)
 
