@@ -1,39 +1,23 @@
-import random
+import requests
+from bs4 import BeautifulSoup
 
 
-# secret_number = random.randint(1000, 9999)
-# number_of_trials = 3
-# guess_count = 0
-
-
-# while guess_count < number_of_trials:
-#     user_response = int(input("Guess the number on my mind\n> "))
-#     if user_response == secret_number:
-#         print("You're Amazing, you guessed right")
-#         break
-#     else:
-#         print("Too bad!! you guessed wrong")
-#     guess_count += 1
-
-# def factorial(number):
-#     if number == 0:
-#         return 1
-#     return number  * factorial(number-1)
-# print(factorial(5))
-
-class Vehicle:
-    def __init__(self, brand, type, model, color, year, mileage, fuel_type, engin_type):
-        self.brand = brand
-        self.type = type
-        self.model = model
-        self.color = color
-        self.year = year
-        self.mileage = mileage
-        self.fuel_type = fuel_type
-        self.engine_type = engin_type
-        
-    def move(self):
-        print("The car is moving ")
-        
-motor = Vehicle("Bugatti", "sport", "Cheron", "Andrew Tate Orange", 2014, "20000km", "Diesel","v8")
-motor.move()
+url = "https://www.ebay.com/sch/i.html?_nkw=mac%20book%202019%20&_sacat=0&_from=R40&rt=nc&_udlo=100&_udhi=120"
+response = requests.get(url)
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, 'html.parser')
+    for data in soup.find_all('div', {"class": "s-item__wrapper clearfix"}):
+        name = data.find('span', {"role": "heading"})
+        print(f"PRODUCT NAME: {name.text.strip()}")
+        price = data.find("span", {"class": "s-item__price"})
+        print(f"PRODUCT PRICE: {price.text.strip()}")
+        img = data.find('img')
+        if img:
+            image = img.get("src")
+            print(f"PRODUCT IMAGE: {image.strip()}")
+        url = data.find('a')
+        if url:
+            link = url.get('href')
+            print(f"PRODUCT LINK: {link.strip()}")
+            
+        print("\n")
