@@ -4,6 +4,8 @@ import os
 from fastapi import FastAPI, responses, status, UploadFile, File
 # import BaseModel from Pydantic
 from pydantic import BaseModel
+# Import user app from use.py
+from user import user
 
 FILEDIRS = "Files"
 
@@ -15,6 +17,7 @@ evans = FastAPI(
     description="Evans is learning how to build a RESTful API with FastAPI",
     version="0.0.1"
 )
+evans.include_router(user, prefix="/v1", tags=["users"])
 
 class Product(BaseModel):
     name: str
